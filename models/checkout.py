@@ -29,13 +29,15 @@ class CheckoutSystem:
         
         item_counts = {} #{A:2,B:2 }
         message=[]
-
+        unavailable_items=set()
         for item in cart_items:
             if item in self.products:
                 item_counts[item] = item_counts.get(item, 0) + 1
             else:
-                message.append(f"The item {item} is not available")
-                print(f"The item {item} is not available")
+                if item not in unavailable_items:
+                    message.append(f"The item {item} is not available")
+                    print(f"The item {item} is not available")
+                    unavailable_items.add(item)
 
         total = 0
         for code, qty in item_counts.items():  #{A:2,B:2}
